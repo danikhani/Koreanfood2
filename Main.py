@@ -14,7 +14,7 @@ canvas.pack()
 frame = tk.Frame(root, bg='white')
 frame.place(  relwidth=1, relheight=1)
 
-food_image = tk.PhotoImage(file=importer.getimage(2))
+food_image = tk.PhotoImage(file=importer.get_food_image(2))
 food_label = tk.Label(frame, image = food_image)
 food_label.place(relx=0.1, rely=0.3, relwidth=0.8, relheight=0.5)
 
