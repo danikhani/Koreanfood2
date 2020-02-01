@@ -6,8 +6,8 @@ def get_food_image_path(food_name):
     try:
         base_path = Path(__file__)
         file_path = (base_path / f"../images/{food_name}.png").resolve()
-        return file_path
-        #return tk.PhotoImage(file=file_path)
+        #return file_path
+        return tk.PhotoImage(file=file_path)
     except IOError as error:
         print(str(error))
 

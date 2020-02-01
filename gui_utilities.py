@@ -9,3 +9,8 @@ class text_with_scrollbar(tk.Frame):
         self.text.configure(yscrollcommand=self.vsb.set)
         self.vsb.pack(side="right", fill="y")
         self.text.pack(side="left", fill="both", expand=True)
+        self.text.insert(tk.END, "Just a text Widget\nin two lines\n")
+
+    def insert_text(self, listname):
+        for x in listname:
+            self.text.insert(tk.END, x + '\n')
