@@ -12,7 +12,7 @@ def main():
     root.mainloop()
 
 
-    view = View()
+    #view = View()
 
 
 if __name__ == '__main__':

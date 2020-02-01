@@ -38,7 +38,22 @@ class Mainpage:
         self.list_of_food.place(relx=0.5, rely=0.1, relwidth=0.8, relheight=0.05, anchor='n')
 
     def button_clicked(self):
-        print("you clicked")
+        self.master.withdraw()
+        toplevel = tk.Toplevel(self.master)
+        toplevel.geometry(f"{self.WIDTH}x{self.HEIGHT}")
+        app = Demo2(toplevel)
+
+    print("you clicked")
 
     def option_changed(self, *args):
         print("the user chose the value {}".format(self.dropdown_selected.get()))
+
+class Demo2:
+    def __init__(self, master):
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        self.quitButton = tk.Button(self.frame, text = 'Quit', width = 25, command = self.close_windows)
+        self.quitButton.pack()
+        self.frame.pack()
+    def close_windows(self):
+        self.master.destroy()
