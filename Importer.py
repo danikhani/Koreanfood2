@@ -2,11 +2,12 @@ from pathlib import Path
 import tkinter as tk
 
 
-def get_food_image(food_name):
+def get_food_image_path(food_name):
     try:
         base_path = Path(__file__)
         file_path = (base_path / f"../images/{food_name}.png").resolve()
-        return tk.PhotoImage(file=file_path)
+        return file_path
+        #return tk.PhotoImage(file=file_path)
     except IOError as error:
         print(str(error))
 
@@ -52,11 +53,12 @@ def get_food_cooking_steps(food_name):
 
 
 class food:
-    def __init__(self, foodname, needed_material, making_steps, picture):
+    def __init__(self, foodname):
         self.foodname = foodname
-        self.needed_material = needed_material
-        self.making_steps = making_steps
-        self.picture = picture
+        self.needed_ingredient = get_food_ingredient_list(self.foodname)
+        self.making_steps = get_food_cooking_steps(self.foodname)
+        self.picture = get_food_image_path(self.foodname)
+
 
 
 

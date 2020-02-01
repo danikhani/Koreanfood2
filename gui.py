@@ -12,6 +12,8 @@ class Mainpage:
         self.HEIGHT = 700
         self.WIDTH = 500
         self.master = master
+        self.gimbab = importer.food('gimbab')
+
 
 
         # A canvas for a default size while starting
@@ -27,7 +29,7 @@ class Mainpage:
 
         # the image of the foods will be called from the get_food_image function of importer module
         #self.food_image = tk.PhotoImage(file=importer.get_food_image('food'))
-        self.food_image = importer.get_food_image('food2')
+        self.food_image = tk.PhotoImage(file=importer.get_food_image_path('food2'))
         self.food_label = tk.Label(self.image_frame, image=self.food_image)
         self.food_label.pack()
         #self.food_label.place(relx=0.5, rely=0.3, width=400, height=400, anchor='n')
@@ -59,8 +61,8 @@ class Mainpage:
         # This makes the bottom usable after the user selected a menu
         self.button2["state"] = "normal"
         val = self.dropdown_selected.get()
-        foodname = print("the user chose the value {}".format(self.dropdown_selected.get()))
-        self.food_label['image']=self.food_image2
+        print("the user chose the value {}".format(self.dropdown_selected.get()))
+        #self.food_label['image']=self.food_image2
 
 
 class Secondpage:

@@ -1,5 +1,6 @@
 import tkinter as tk
 import gui as gui
+import Importer as importer
 from Timer.Timer_gui import View
 import tkinter.ttk as ttk
 from pathlib import Path
