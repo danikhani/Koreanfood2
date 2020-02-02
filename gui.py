@@ -4,7 +4,7 @@ from pathlib import Path
 import Importer as importer
 import gui_utilities as Gui_utilities
 import tkinter.scrolledtext as scrolledtext
-import Main as main
+
 
 class Mainpage(tk.Frame):
     def __init__(self, parent, controller):
@@ -92,6 +92,7 @@ class Secondpage(tk.Frame):
                                  command=lambda: controller.show_frame("Mainpage"))
         self.button2.place(relx=0.90, rely=0.01, width=80, height=30, anchor='n')
 
+    # These two functions will set the ingredients and cooking steps.
     def change_needed_stuff(self, list_name):
         self.needed_stuff.insert_text(list_name)
 
