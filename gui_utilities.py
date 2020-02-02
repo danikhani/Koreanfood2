@@ -4,13 +4,14 @@ import tkinter as tk
 class text_with_scrollbar(tk.Frame):
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, *args, **kwargs)
-        self.text = tk.Text(self, height=6, width=40,state='disabled')
-        self.vsb = tk.Scrollbar(self, orient="vertical", command=self.text.yview)
-        self.text.configure(yscrollcommand=self.vsb.set)
-        self.vsb.pack(side="right", fill="y")
-        self.text.pack(side="left", fill="both", expand=True)
-        self.text.insert(tk.END, "Just a text Widget\nin two lines\n")
+        scrollbar = tk.Scrollbar(self)
+        textfield = tk.Text(self, height=4, width=50)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        textfield.pack(side=tk.LEFT, fill=tk.Y)
+        scrollbar.config(command=textfield.yview)
+        textfield.insert(tk.END, 'text')
 
     def insert_text(self, listname):
         for x in listname:
-            self.text.insert(tk.END, x + '\n')
+            self.textfield.insert(tk.END, x + '\n')
+

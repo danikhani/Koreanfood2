@@ -29,7 +29,6 @@ class Mainpage(tk.Frame):
         self.food_image = importer.get_food_image_path('food2')
         self.food_label = tk.Label(self.image_frame, image=self.food_image)
         self.food_label.pack()
-        #self.food_label.place(relx=0.5, rely=0.3, width=400, height=400, anchor='n')
 
         # Button to close this and go to the next page
         self.button2 = tk.Button(self.frame, text='Show the recipe', command=lambda: controller.show_frame("Secondpage"))
@@ -47,13 +46,6 @@ class Mainpage(tk.Frame):
         self.dropdown_selected.trace("w", self.option_changed)
         self.list_of_food.place(relx=0.5, rely=0.1, relwidth=0.8, relheight=0.05, anchor='n')
 
-    def button_clicked(self):
-        self.master.withdraw()
-        toplevel = tk.Toplevel(self.master)
-        toplevel.geometry(f'{self.WIDTH}x{self.HEIGHT}')
-        app = Secondpage(toplevel, self.dropdown_selected.get())
-        #print("you clicked")
-
     def option_changed(self, *args):
         # This makes the bottom usable after the user selected a menu
         self.button2["state"] = "normal"
@@ -68,32 +60,25 @@ class Mainpage(tk.Frame):
         if self.dropdown_selected.get() == self.kimchi.foodname:
             self.food_label['image'] = self.kimchi.picture
 
-        #self.food_label['image']=self.food_image2
-
 
 class Secondpage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        #label = tk.Label(self, text="This is the start page", font=controller.title_font)
-        #label.pack(side="top", fill="x", pady=10)
-
         self.parent = parent
+
+        # codes start from here
         self.frame = tk.Frame(self)
         self.frame.place(relwidth=1, relheight=1)
-        #self.foodtype = foodtype
 
         self.gimbab = importer.food('Gimbab')
         self.bulgogi = importer.food('Bulgogi')
         self.kimchi = importer.food('Kimchi_Jjigae')
 
-
-        #print('you clicked ' + self.foodtype)
-
         # The needed stuff to make the food:
         self.needed_stuff = Gui_utilities.text_with_scrollbar(self.frame)
-       # self.needed_stuff.insert_text(self.gimbab.needed_ingredient)
+        # self.needed_stuff.insert(tk.END, 'yohow')
         self.needed_stuff.place(relx=0.01, y=0.01, relwidth=0.8, height=200, anchor='nw')
 
         # The steps to make the food
