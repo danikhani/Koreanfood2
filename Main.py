@@ -42,7 +42,13 @@ class Main(tk.Tk):
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
         frame = self.frames[page_name]
+        print(type(frame))
         frame.tkraise()
+
+    def which_frame(self, page_name):
+        '''this gives the page object back. With this its possible to use the functions inside that object'''
+        frame = self.frames[page_name]
+        return frame
 
 
 if __name__ == "__main__":

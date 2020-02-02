@@ -4,7 +4,7 @@ from pathlib import Path
 import Importer as importer
 import gui_utilities as Gui_utilities
 import tkinter.scrolledtext as scrolledtext
-
+import Main as main
 
 class Mainpage(tk.Frame):
     def __init__(self, parent, controller):
@@ -55,9 +55,15 @@ class Mainpage(tk.Frame):
         # Here comes the logic for the selected value in the dropdown menu
         if self.dropdown_selected.get() == self.gimbab.foodname:
             self.food_label['image'] = self.gimbab.picture
+            self.controller.which_frame("Secondpage").change_needed_stuff(self.gimbab.needed_ingredient)
+            self.controller.which_frame("Secondpage").change_cooking_steps(self.gimbab.making_steps)
         if self.dropdown_selected.get() == self.bulgogi.foodname:
             self.food_label['image'] = self.bulgogi.picture
+            self.controller.which_frame("Secondpage").change_needed_stuff(self.bulgogi.needed_ingredient)
+            self.controller.which_frame("Secondpage").change_cooking_steps(self.bulgogi.making_steps)
         if self.dropdown_selected.get() == self.kimchi.foodname:
+            self.controller.which_frame("Secondpage").change_needed_stuff(self.kimchi.needed_ingredient)
+            self.controller.which_frame("Secondpage").change_cooking_steps(self.kimchi.making_steps)
             self.food_label['image'] = self.kimchi.picture
 
 
@@ -65,6 +71,7 @@ class Secondpage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+
         self.controller = controller
         self.parent = parent
 
@@ -72,21 +79,25 @@ class Secondpage(tk.Frame):
         self.frame = tk.Frame(self)
         self.frame.place(relwidth=1, relheight=1)
 
-        self.gimbab = importer.food('Gimbab')
-        self.bulgogi = importer.food('Bulgogi')
-        self.kimchi = importer.food('Kimchi_Jjigae')
-
         # The needed stuff to make the food:
         self.needed_stuff = Gui_utilities.text_with_scrollbar(self.frame)
-        # self.needed_stuff.insert(tk.END, 'yohow')
         self.needed_stuff.place(relx=0.01, y=0.01, relwidth=0.8, height=200, anchor='nw')
 
         # The steps to make the food
         self.cooking_steps = Gui_utilities.text_with_scrollbar(self.frame)
         self.cooking_steps.place(relx=0.01, y=210, relwidth=0.9, height=450, anchor='nw')
 
-    def close_windows(self):
-        self.master.destroy()
+        # Button to close this and go to the next page
+        self.button2 = ttk.Button(self.frame, text='Main Page',
+                                 command=lambda: controller.show_frame("Mainpage"))
+        self.button2.place(relx=0.90, rely=0.01, width=80, height=30, anchor='n')
+
+    def change_needed_stuff(self, list_name):
+        self.needed_stuff.insert_text(list_name)
+
+    def change_cooking_steps(self, list_name):
+        self.cooking_steps.insert_text(list_name)
+
 
 
 
