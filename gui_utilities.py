@@ -9,7 +9,6 @@ class text_with_scrollbar(tk.Frame):
         self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.textfield.pack(side=tk.LEFT, fill=tk.Y)
         self.scrollbar.config(command=self.textfield.yview)
-        self.textfield.insert(tk.END, 'text')
 
     def insert_text(self, listname):
         for x in listname:

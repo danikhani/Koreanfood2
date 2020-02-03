@@ -4,6 +4,7 @@ from pathlib import Path
 import Importer as importer
 import gui_utilities as Gui_utilities
 import tkinter.scrolledtext as scrolledtext
+import tktimer as timer_reddit
 
 
 class Mainpage(tk.Frame):
@@ -11,6 +12,7 @@ class Mainpage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
         self.parent = parent
+
 
         # From here starts the code
         self.gimbab = importer.food('Gimbab')
@@ -29,6 +31,11 @@ class Mainpage(tk.Frame):
         self.food_image = importer.get_food_image_path('food2')
         self.food_label = tk.Label(self.image_frame, image=self.food_image)
         self.food_label.pack()
+
+        # Button to close this and go to the next page
+        self.timer_button = tk.Button(self.frame, text='Show timer')
+        # this keeps the bottom disabled at the beginninng. when user selects a food button will get enabled
+        #self.timer_button.place(relx=0.5, rely=0, relwidth=0.8, relheight=0.05, anchor='n')
 
         # Button to close this and go to the next page
         self.button2 = tk.Button(self.frame, text='Show the recipe', command=lambda: controller.show_frame("Secondpage"))
@@ -75,6 +82,7 @@ class Secondpage(tk.Frame):
         self.controller = controller
         self.parent = parent
 
+        self.counter = 0
         # codes start from here
         self.frame = tk.Frame(self)
         self.frame.place(relwidth=1, relheight=1)
@@ -87,10 +95,13 @@ class Secondpage(tk.Frame):
         self.cooking_steps = Gui_utilities.text_with_scrollbar(self.frame)
         self.cooking_steps.place(relx=0.01, y=210, relwidth=0.9, height=450, anchor='nw')
 
-        # Button to close this and go to the next page
+        # Button to close this and go to the main page
         self.button2 = ttk.Button(self.frame, text='Main Page',
                                  command=lambda: controller.show_frame("Mainpage"))
         self.button2.place(relx=0.90, rely=0.01, width=80, height=30, anchor='n')
+
+        self.button = tk.Button(self.frame, text="Open Timer", command=self.create_window)
+        self.button.place(relx=0.90, rely=0.1, width=80, height=30, anchor='n')
 
     # These two functions will set the ingredients and cooking steps.
     def change_needed_stuff(self, list_name):
@@ -98,6 +109,19 @@ class Secondpage(tk.Frame):
 
     def change_cooking_steps(self, list_name):
         self.cooking_steps.insert_text(list_name)
+
+    def create_window(self):
+        self.counter += 1
+        timer_windows = tk.Toplevel(self)
+        timer_windows.wm_title("Timer #%s" % self.counter)
+
+        timer = timer_reddit.Stopwatch(timer_windows, unit='minutes', prefix='minutes ')
+        timer.grid(row=0, column=0, columnspan=2, sticky="nswe")
+        tk.Button(timer_windows, text="Start", command=timer.start).grid(row=1, column=0)
+        tk.Button(timer_windows, text="Pause", command=timer.pause).grid(row=1, column=1)
+
+        l = tk.Label(timer_windows, text="Timer for #%s" % self.counter)
+        #l.pack(side="top", fill="both", expand=True, padx=100, pady=100)
 
 
 
