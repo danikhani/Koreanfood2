@@ -4,7 +4,7 @@ from pathlib import Path
 import Importer as importer
 import gui_utilities as Gui_utilities
 import tkinter.scrolledtext as scrolledtext
-import tktimer as timer_reddit
+import lib.tktimer as timer_reddit
 
 
 class Mainpage(tk.Frame):
